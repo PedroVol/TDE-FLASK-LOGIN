@@ -1,0 +1,42 @@
+{% extends 'base1.html' %}
+{% block content %}
+<h2>Sensores</h2>
+
+<form method="post" action="{{ url_for('sensors.add_sensor') }}">
+  <input type="text" name="id" placeholder="ID" required>
+  <input type="text" name="name" placeholder="Nome">
+  <input type="text" name="type" placeholder="Tipo">
+  <input type="text" name="location" placeholder="Local">
+  <input type="text" name="value" placeholder="Valor">
+  <button type="submit">Adicionar</button>
+</form>
+
+<table>
+  <thead>
+    <tr><th>ID</th><th>Nome</th><th>Tipo</th><th>Local</th><th>Valor</th><th>Ações</th></tr>
+  </thead>
+  <tbody>
+    {% for sid, s in sensors.items() %}
+    <tr>
+      <td>{{ sid }}</td>
+      <td>{{ s.name }}</td>
+      <td>{{ s.type }}</td>
+      <td>{{ s.location }}</td>
+      <td>{{ s.value }}</td>
+      <td>
+        <form class="inline" method="post" action="{{ url_for('sensors.delete_sensor', sid=sid) }}">
+          <button type="submit">Excluir</button>
+        </form>
+        <form class="inline" method="post" action="{{ url_for('sensors.update_sensor', sid=sid) }}">
+          <input type="text" name="name" placeholder="Nome">
+          <input type="text" name="type" placeholder="Tipo">
+          <input type="text" name="location" placeholder="Local">
+          <input type="text" name="value" placeholder="Valor">
+          <button type="submit">Atualizar</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

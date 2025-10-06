@@ -1,0 +1,52 @@
+{% extends 'base1.html' %}
+{% block content %}
+<h2>Atuadores</h2>
+
+<form method="post" action="{{ url_for('actuators.add_actuator') }}">
+  <input type="text" name="id" placeholder="ID" required>
+  <input type="text" name="name" placeholder="Nome">
+  <input type="text" name="type" placeholder="Tipo">
+  <input type="text" name="location" placeholder="Local">
+  <select name="state">
+    <option value="off" selected>Desligado</option>
+    <option value="on">Ligado</option>
+  </select>
+  <button type="submit">Adicionar</button>
+</form>
+
+<table>
+  <thead>
+    <tr><th>ID</th><th>Nome</th><th>Tipo</th><th>Local</th><th>Estado</th><th>Ações</th></tr>
+  </thead>
+  <tbody>
+    {% for aid, a in actuators.items() %}
+    <tr>
+      <td>{{ aid }}</td>
+      <td>{{ a.name }}</td>
+      <td>{{ a.type }}</td>
+      <td>{{ a.location }}</td>
+      <td>{{ 'Ligado' if a.state else 'Desligado' }}</td>
+      <td>
+        <form class="inline" method="post" action="{{ url_for('actuators.toggle_actuator', aid=aid) }}">
+          <button type="submit">Alternar</button>
+        </form>
+        <form class="inline" method="post" action="{{ url_for('actuators.delete_actuator', aid=aid) }}">
+          <button type="submit">Excluir</button>
+        </form>
+        <form class="inline" method="post" action="{{ url_for('actuators.update_actuator', aid=aid) }}">
+          <input type="text" name="name" placeholder="Nome">
+          <input type="text" name="type" placeholder="Tipo">
+          <input type="text" name="location" placeholder="Local">
+          <select name="state">
+            <option value="">-- manter --</option>
+            <option value="on">Ligar</option>
+            <option value="off">Desligar</option>
+          </select>
+          <button type="submit">Atualizar</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

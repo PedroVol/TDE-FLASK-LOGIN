@@ -1,0 +1,21 @@
+{% extends 'base1.html' %}
+{% block content %}
+<h2>Usuários</h2>
+<table>
+  <thead><tr><th>Usuário</th><th>Ações</th></tr></thead>
+  <tbody>
+    {% for u in devices %}
+      <tr>
+        <td>{{ u }}</td>
+        <td>
+          <form class="inline" method="post" action="{{ url_for('login.del_user') }}">
+            <input type="hidden" name="user" value="{{ u }}">
+            <button type="submit">Excluir</button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p><a href="{{ url_for('login.register_user') }}">Cadastrar novo usuário</a></p>
+{% endblock %}

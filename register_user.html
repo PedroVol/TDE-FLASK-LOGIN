@@ -1,0 +1,9 @@
+{% extends 'base1.html' %}
+{% block content %}
+<h2>Cadastrar usuário</h2>
+<form method="post" action="{{ url_for('login.create_user') }}">
+  <input type="text" name="user" placeholder="Usuário" required>
+  <input type="password" name="password" placeholder="Senha" required>
+  <button type="submit">Salvar</button>
+</form>
+{% endblock %}
